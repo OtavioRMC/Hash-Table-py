@@ -1,4 +1,4 @@
-from utils import Contact
+from utils import *
 
 class HashTable:  
   def __init__(self,size) -> None:
@@ -15,4 +15,17 @@ class HashTable:
   def _hash(self,key):
     return self.my_hash(key)
   
+  def set(self,key,value):
+    hash_index = self._hash(key)
+    node = self.table[hash_index]
+    if node is not None:
+      self.table[hash_index] = Node(key,value)
+    else:
+      while node is not None:
+        if node.key == key:
+          node.value = value
+          return
+        prev = node
+        node = node.next
+      prev.next = Node(key,value)
   
