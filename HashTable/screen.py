@@ -1,8 +1,8 @@
 
 import tkinter as tk
 from tkinter import messagebox
-from utils import *
-from hash import HashTable
+from HashTable.utils import *
+from HashTable.hash import HashTable
 
 class Application(tk.Frame):
    def __init__(self, master=None):
