@@ -16,16 +16,46 @@ class HashTable:
     return self.my_hash(key)
   
   def set(self,key,value):
-    hash_index = self._hash(key)
-    node = self.table[hash_index]
-    if node is not None:
-      self.table[hash_index] = Node(key,value)
-    else:
-      while node is not None:
-        if node.key == key:
-          node.value = value
-          return
-        prev = node
-        node = node.next
+      hash_index = self._hash(key)
+      node = self.table[hash_index]
+      prev = None
+      if node is not None:
+          self.table[hash_index] = Node(key,value)
+      else:
+          while node is not None:
+              if node.key == key:
+                  node.value = value
+                  return
+              prev = node
+              node = node.next
+          if prev is None:
+              self.table[hash_index] = Node(key,value)
+          else:
+              prev.next = Node(key,value)
       prev.next = Node(key,value)
   
+  def get(self,key):
+    hash_index = self._hash(key)
+    node = self.table[hash_index]
+    while node is not None and node.key != key:
+      node = node.next
+    if node is None:
+      raise KeyError(f'Contact {key} not found')
+    else:
+      return node.value
+  
+  def remove(self,key):
+    hash_index = self._hash(key)
+    node = self.table[hash_index]
+    if node is None:
+      raise KeyError(f"Contact {key} not found")
+      return
+    prev = node
+    node = node.next
+    while node is not None and node.key != key:
+      prev = node 
+      node = node.next
+    if node is None:
+      raise KeyError(f"Contact {key} not found")
+    else:
+      prev.next = node.next
