@@ -1,4 +1,4 @@
-from HashTable.utils import *
+from utils import *
 
 class HashTable:  
   def __init__(self,size) -> None:
